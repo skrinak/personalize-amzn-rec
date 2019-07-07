@@ -3,9 +3,9 @@
 
 In this workshop we'll create a recommendation engine using the same data as our previous workshop led by Rumi Olsen. Her notebook is here: [Amazon SageMaker の Factorization Machines を使用したレコメンダ システムの構築](https://github.com/rumiio/sagemaker-rec-engine-demo). In Rumi's workshop we created a recommendation engine based on the [Amazon Customer Reviews Dataset](https://s3.amazonaws.com/amazon-reviews-pds/readme.html) from scratch using a traditional machine learning method: factorization machines. In this workshops we use the Amazon managed service Personalize to achieve the same goal. 
 
-Personalize is a much easier approach as the service does a lot of heavy lifting for you. All the work is in the setup. To use personalizes we need to: 
+Personalize is a much easier approach as the service does a lot of heavy lifting for you. All the work is in the setup. To use Personalize we need to: 
 
-* Enable Sagemaker to use personalize features 
+* Enable Sagemaker to use Personalize features 
 * Coordinate usage of SageMaker, Personalize, and S3 using IAM roles
     * We'll modify the IAM role created for us in SageMaker
     * and we'll create a new role for Personalize that enables S3 access and other operations
@@ -29,7 +29,12 @@ In the workshop we'll switch between Jupyter notebook and the Grphical User Inte
     * Name your notebook
     * Provide additional storage of 50G
     * Create a SageMaker role
-        * Once the role is created, click on it to modify the role policies
+        * Once the role is created, click on its name to modify the role policies. IAM will popup in a new tab. Leave it there for now and let's finish setting up the notebook.
+    * Navigate to Git Repositories and click the arrow
+        * Choose to clone a public git repository.
+        * Enter: ```https://github.com/skrinak/personalize-amzn-rec.git```
+    * Create your new notebook instance by clicking the big orange button. 
+    * While your notebook is being instantiated, click on the IAM tab we created a few moments ago. 
         * Edit the AmazonSageMaker-ExecutionPolicy policy to match the following: 
         ```
         {
@@ -62,15 +67,16 @@ In the workshop we'll switch between Jupyter notebook and the Grphical User Inte
         ```
 
     * Save your changes
-    * Stay in IAM. Click "Attach Policies"
+    * Stay in IAM. 
+        * Click on "roles" on the left navigation. Search for your newly created SageMaker Execution role. Click on the role name to edit.
+        * Click on Attach policies.
         * In Filter Policies seach for personalize. ```AmazonPersonalizeFullAccess``` will appear. 
         * Click the checkbox on the left.
         * Click on Attach Policy
-    * Return to the SageMaker Create Notebook tab. We're done modifying the SageMaker role. We'll be creating a separate Personalize role within the notebook.
-    * Create your new notebook instance
+    * Return to the SageMaker Dashboard. 
 1. Launch Jupyter
 1. Open the notebook: Amazon Customer Reviews.ipynb
 
 ## In the Jupypter Notebook
-1. Change the S3 bucket variable from ``` bucket = "personalize-demo" ``` to the bucket name you created.
+1. In the 2nd cell change the S3 bucket variable from ``` bucket = "personalize-demo" ``` to the bucket name you created.
 1. Execute each step with the instructot. We'll be moving between the GUI and notebook. Please don't skip ahead. If you do you're liable to miss information required to complete the workshop. 
